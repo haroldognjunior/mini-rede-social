@@ -27,14 +27,6 @@ const User = (sequelize, S) => {
                 isEmail: true,
                 notEmpty: true
             }
-        },
-        admin: {
-            type: S.BOOLEAN,
-            defaultValue: false,
-        },
-        reset: {
-            type: S.BOOLEAN,
-            defaultValue: false,
         }
     }, { timestamps: false });
 

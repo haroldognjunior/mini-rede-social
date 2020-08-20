@@ -34,7 +34,7 @@ server.post('/', function(req, res) {
 
 //trazer todos os usuários
 
-server.get('/', loggedIn, function(req, res) {
+server.get('/', /* loggedIn, */ function(req, res) {
     User.findAll()
         .then((users) => {
             res.send(users);
@@ -80,12 +80,11 @@ server.post('/logout',
 
 //Trazer o login do usuário
 
-server.get('/login', loggedIn,
+server.get('/login', /* loggedIn, */
     function(req, res) {
         res.json(req.user)
 
     }
 );
-
 
 module.exports = server;

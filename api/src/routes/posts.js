@@ -1,5 +1,5 @@
 const server = require('express').Router();
-const { Post } = require('../models');
+const { Post, Comment } = require('../models');
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
@@ -21,7 +21,7 @@ function loggedIn(req, res, next) {
 
 server.get('/', function(req, res) {
     Post.findAll()
-        .then(function(messsage) {
+        .then(function(message) {
             return res.status(200).send(message); 
         });
 });
@@ -35,8 +35,7 @@ server.get('/:id', function(req, res) {
             id: req.params.id,
         }
     }).then(function(message) {
-        console.log(message);
-        return res.status(200).send(message)
+            return res.status(200).send(message)
     })
     .catch(() => {
         return res.status(404).send('Não foi possível encontrar o post')
@@ -45,11 +44,11 @@ server.get('/:id', function(req, res) {
 
 //Faz a inclusão de um novo post
 
-server.post('/posts', loggedIn, function(req, res) {
-    Comment.create({
-            comment: req.body.comment,           
+server.post('/', /* loggedIn, */ function(req, res) {
+    Post.create({
+            message: req.body.message,           
             userIdUser: req.body.userIdUser,
-            postId : req.body.postId
+            
         })
         .then(() => {
             return res.send('Seu comentário foi adicionado')
@@ -78,7 +77,7 @@ server.get('/:id/comments', function(req, res) {
 
 //Faz a inclusão de um novo comentário para um determinado post
 
-server.post('/:id/comments', loggedIn, function(req, res) {
+server.post('/:id/comments', /* loggedIn, */ function(req, res) {
     Comment.create({
             comment: req.body.comment,           
             userIdUser: req.body.userIdUser,
