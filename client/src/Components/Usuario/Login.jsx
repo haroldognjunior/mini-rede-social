@@ -23,11 +23,6 @@ function Login({ loggin,getUser}){
     })
 }
 
-  /* const dispatch = useDispatch();
-  function enviarFormulario () {
-    dispatch(loggin(input));
-  } */
- 
   const enviarFormulario = function(e){
     e.preventDefault()
     const user= {
@@ -35,9 +30,7 @@ function Login({ loggin,getUser}){
         senhaUser: input.contraUser
     }
     getUser(input.nomeUser)
-            console.log(input, "esto es del user")
-           
-                loggin(input)
+      loggin(input)
             
         
   

@@ -4,13 +4,15 @@ import {
   LOGGIN,
   GET_USERS,
   GET_USER_LOGGED,
-  GET_POST
+  GET_POST,
+  GET_COMMENT
 } from "../Constants/userConstants";
 
 const initialState = {
   usuarios: [],
   usuarioConectado: {},
-  post: []
+  post: [],
+  comentario: []
    
   };
 
@@ -31,22 +33,26 @@ export default function usuario(state = initialState, action) {
         ...state,
         usuarioConectado: action.payload
             };
-            case GET_USERS:
-            return {
-                ...state,
-                usuarios: action.payload
+      case GET_USERS:
+      return {
+        ...state,
+        usuarios: action.payload
+            };
+      case GET_USER_LOGGED:
+      return {
+        ...state,
+        usuarioConectado: action.payload
+              };
+      case GET_POST:
+      return {
+        ...state,
+        post: action.payload
             }
-            case GET_USER_LOGGED:
-              return {
-                  ...state,
-                  usuarioConectado: action.payload
+      case GET_COMMENT:
+      return {
+        ...state,
+        comentario: action.payload
               }
-              case GET_POST:
-            return {
-                ...state,
-                post: action.payload
-            }
-      
 
         default:
       return state;

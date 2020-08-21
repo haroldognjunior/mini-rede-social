@@ -75,9 +75,9 @@ server.post('/:idUser', /* loggedIn, */ function(req, res) {
 
 server.get('/:id/comments', function(req, res) {
 
-    Comment.findOne({
+    Comment.findAll({
         where: {
-            id: req.params.id,
+            postId: req.params.id,
         }
     }).then(function(comment) {
         console.log(comment);
@@ -90,11 +90,11 @@ server.get('/:id/comments', function(req, res) {
 
 //Faz a inclusão de um novo comentário para um determinado post
 
-server.post('/:id/comments', /* loggedIn, */ function(req, res) {
+/* server.post('/:id/comments', function(req, res) {
     Comment.create({
             comment: req.body.comment,           
-            userIdUser: req.body.userIdUser,
-            postId : req.body.postId
+            userIdUser: req.params.userIdUser,
+            postId : req.params.postId
         })
         .then(() => {
             return res.send('Seu comentário foi adicionado')
@@ -102,6 +102,41 @@ server.post('/:id/comments', /* loggedIn, */ function(req, res) {
         .catch(() => {
             return res.status(400).send('Não foi possível adicionar o seu comentário')
         })
+}); */
+
+server.post('/:id/comments', function(req, res) {
+
+    var comment = function(){
+        return Comment.create({
+            comment: req.body.comment
+        })
+    }
+
+    var post = function(){
+        return Post.findOne({
+            postId: req.params.id,
+        })
+    }
+
+    var user = function() {
+        return User.findOne({
+            where: {
+                useridUser: req.body.useridUser,
+            }
+        })
+    }
+
+    Promise.all([comment(), post(), user()]).then((response) => {
+        if (response[0] && response[1]) {
+            response[1].addComment(response[0]);
+            if (response[1] && response[2]) {
+                response[2].addComment(response[1]);
+            }
+            return res.send('Comentário publicado com sucesso');
+        } else {
+            return res.send('Comentário não publicado')
+        }
+    });     
 });
 
 module.exports = server;

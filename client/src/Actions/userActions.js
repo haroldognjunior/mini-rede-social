@@ -5,7 +5,8 @@ import {
   GET_USERS,
   GET_USER_LOGGED,
   GET_POST,
-  ADD_POST
+  ADD_POST,
+  GET_COMMENT
   } from "../Constants/userConstants";
 import axios from "axios";
 import swal from "sweetalert";
@@ -54,10 +55,10 @@ export function loggin(user) {
               if (res.status === 200) {
                   return (
                       dispatch({ type: LOGGIN, payload: res.json() }),
-                      window.location.replace('http://localhost:3000/post')
+                      window.location.replace('http://localhost:3000/posts')
                   )
               } else {
-                  alert("Error en datos ingresados")
+                  alert("Dados errados!")
               }
           })
   }
@@ -153,11 +154,29 @@ export function addPost(post, idusuario) {
                   return (
                       dispatch({ type: ADD_POST }),
                       swal('Post publicado com sucesso =)'),
-                      window.location.replace('http://localhost:3000/post')
+                      window.location.replace('http://localhost:3000/posts')
                   )
               } else {
                   alert("Erro =(")
               }
+          })
+  }
+}
+
+export function getComment(id) {
+  return function(dispatch) {
+      return fetch('http://localhost:3001/posts/' + id + "/comments" , {
+        headers: {
+            'Accept': '*/*',
+            'Content-Type': 'application/json'
+        },
+        method: 'GET',
+        credentials: 'include'
+
+    })
+          .then(response => response.json())
+          .then(json => {
+              dispatch({ type: GET_COMMENT, payload: json })
           })
   }
 }

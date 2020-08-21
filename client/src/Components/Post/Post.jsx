@@ -9,6 +9,8 @@ function Post({Post, getPost}) {
       getPost()
   },[getPost])
 
+  
+
   return(
       <div>
       <CriarPost />
@@ -16,6 +18,7 @@ function Post({Post, getPost}) {
       {Post.map(P => {
           return <div className="Post" key={P.userIdUser+P.idPost}>
            <span>O usuário {P.userIdUser} postou o seguinte: {P.message} </span>
+           <p> Quer deixar um comentário?</p>
       </div>})}
       
 

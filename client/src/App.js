@@ -7,6 +7,7 @@ import exportCriarUsuario from './Components/Usuario/index';
 import Login from './Components/Usuario/Login';
 import Post from './Components/Post/Post';
 import CriarPost from './Components/Post/CriarPost';
+import Comment from './Components/Post/Comment';
 import { getUserLoggedIn ,getUsers} from './Actions/userActions'
 import NotFound from './Components/404/NotFound';
 
@@ -23,8 +24,11 @@ function App({getUserLoggedIn}) {
            <Route exact path="/" component={Home} />
            <Route exact path="/registro" component={exportCriarUsuario} />
            <Route exact path="/login" component={Login} />
-           <Route exact path="/post" component={Post} />
+           <Route exact path="/posts" component={Post} />
            <Route exact path="/criarpost" component={CriarPost} />
+           <Route exact path="/comment" component={Comment} />
+           <Route exact path="/post/:id" component={({ match }) => <Comment id={match.params.id} />}
+          />
           <Route component={NotFound} />
         </Switch>
       </Router>
