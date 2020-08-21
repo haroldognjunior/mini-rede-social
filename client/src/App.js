@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect} from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { connect } from "react-redux";
+import './css/App.css';
+import Home from './Components/Usuario/Home';
+import exportCriarUsuario from './Components/Usuario/index';
+import Login from './Components/Usuario/Login';
+import Post from './Components/Post/Post';
+import CriarPost from './Components/Post/CriarPost';
+import { getUserLoggedIn ,getUsers} from './Actions/userActions'
+import NotFound from './Components/404/NotFound';
 
-function App() {
+function App({getUserLoggedIn}) {
+  useEffect(()=>{
+    getUserLoggedIn()
+},[getUserLoggedIn])
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <Router>
+        <Switch>
+           <Route exact path="/" component={Home} />
+           <Route exact path="/registro" component={exportCriarUsuario} />
+           <Route exact path="/login" component={Login} />
+           <Route exact path="/post" component={Post} />
+           <Route exact path="/criarpost" component={CriarPost} />
+          <Route component={NotFound} />
+        </Switch>
+      </Router>
       </header>
     </div>
   );
 }
 
-export default App;
+function mapStateToProps(state){
+  return{
+      usuario : state.usuario.usuarioConectado
+  }
+}
+
+export default connect (mapStateToProps,{ getUserLoggedIn,getUsers})( App )

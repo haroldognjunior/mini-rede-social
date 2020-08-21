@@ -1,6 +1,7 @@
 const server = require('express').Router();
-const { Post, Comment } = require('../models');
+const { User, Post, Comment } = require('../models');
 const Sequelize = require('sequelize');
+
 const Op = Sequelize.Op;
 
 //verificar que o usuário está logueado
@@ -44,18 +45,30 @@ server.get('/:id', function(req, res) {
 
 //Faz a inclusão de um novo post
 
-server.post('/', /* loggedIn, */ function(req, res) {
-    Post.create({
-            message: req.body.message,           
-            userIdUser: req.body.userIdUser,
-            
+server.post('/:idUser', /* loggedIn, */ function(req, res) {
+
+    var post = function(){
+        return Post.create({
+            message: req.body.message,
         })
-        .then(() => {
-            return res.send('Seu comentário foi adicionado')
+    }
+
+    var user = function() {
+        return User.findOne({
+            where: {
+                idUser: req.params.idUser,
+            }
         })
-        .catch(() => {
-            return res.status(400).send('Não foi possível adicionar o seu comentário')
-        })
+    }
+
+    Promise.all([post(), user()]).then((response) => {
+        if (response[0] && response[1]) {
+            response[1].addPost(response[0]);
+            return res.send('Post publicado com sucesso');
+        } else {
+            return res.send('Post não publicado')
+        }
+    })    
 });
 
 //Retorna a lista de comentários para um determinado post, caso não exista deverá retornar 404 Not Found
