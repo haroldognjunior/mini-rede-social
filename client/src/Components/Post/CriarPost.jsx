@@ -33,7 +33,7 @@ function CriarPost({addPost, usuarioConectado}){
             <input className="form-control" required type="text" name="message"  id="validationTooltip01" placeholder="O que está pensando?" onChange={handleInputChange} />              
             </div>
             <br/>
-            <button type="submit" className=" btn btn-lg btn-primary btn-block"  value="Enviar" onClick={enviarCriarPost} >Enviar</button>
+            <button type="submit" className=" btn btn-lg btn-primary btn-block"  value="Postar" onClick={enviarCriarPost} >Postar</button>
             
     </form>
 

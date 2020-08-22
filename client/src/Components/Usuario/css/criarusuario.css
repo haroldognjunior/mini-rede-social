@@ -23,3 +23,7 @@ font-size: 24px;
 #usuario button{
     margin-top: 10px;
 }
+#usuario span {
+    color: red;
+    display: flex;
+}

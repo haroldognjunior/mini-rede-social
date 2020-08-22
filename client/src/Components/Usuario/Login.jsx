@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { useDispatch } from "react-redux";
 import { loggin, getUser  } from "../../Actions/userActions";
 import Container from "react-bootstrap/Container";
 import Image from "react-bootstrap/Image";
 import "./css/login.css";
-import swal from "sweetalert";
+
 
 function Login({ loggin,getUser}){
 
@@ -49,7 +48,8 @@ function Login({ loggin,getUser}){
       <form 
         className="form-signin" 
         onSubmit={(e)=>e.preventDefault()}>
-        <div id="contelogin2">          
+        <div id="contelogin2">  
+        <h4>Iniciar Sessão</h4>        
             <input
               name="nomeUser"
               placeholder="Nome de usuário"

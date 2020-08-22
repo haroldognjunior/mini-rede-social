@@ -7,7 +7,7 @@ import './css/home.css';
 
 export default function Home() {
 
-  const loguear = function (e) {
+  const login = function (e) {
     window.location.replace("http://localhost:3000/login");
   };
   const registrar = function (e) {
@@ -18,7 +18,7 @@ export default function Home() {
     <Container id="contehome1">
       <Image id="header" src="https://fotos.subefotos.com/c2427404481f5244287e9b2a40964bfdo.png" ></Image>
       <div className="contehome2">
-      <button className="btn btn-outline-dark"  onClick={loguear}  type="button" >
+      <button className="btn btn-outline-dark"  onClick={login}  type="button" >
           Iniciar Sessão
         </button>
       </div>   

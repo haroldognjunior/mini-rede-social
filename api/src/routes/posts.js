@@ -90,7 +90,7 @@ server.get('/:id/comments', function(req, res) {
 
 //Faz a inclusão de um novo comentário para um determinado post
 
-/* server.post('/:id/comments', function(req, res) {
+ server.post('/:id/comments', function(req, res) {
     Comment.create({
             comment: req.body.comment,           
             userIdUser: req.params.userIdUser,
@@ -102,9 +102,9 @@ server.get('/:id/comments', function(req, res) {
         .catch(() => {
             return res.status(400).send('Não foi possível adicionar o seu comentário')
         })
-}); */
+}); 
 
-server.post('/:id/comments', function(req, res) {
+/* server.post('/:id/comments', function(req, res) {
 
     var comment = function(){
         return Comment.create({
@@ -124,7 +124,7 @@ server.post('/:id/comments', function(req, res) {
                 useridUser: req.body.useridUser,
             }
         })
-    }
+    } */
 
     Promise.all([comment(), post(), user()]).then((response) => {
         if (response[0] && response[1]) {
