@@ -126,7 +126,7 @@ server.get('/:id/comments', function(req, res) {
         })
     } */
 
-    Promise.all([comment(), post(), user()]).then((response) => {
+/*     Promise.all([comment(), post(), user()]).then((response) => {
         if (response[0] && response[1]) {
             response[1].addComment(response[0]);
             if (response[1] && response[2]) {
@@ -138,5 +138,5 @@ server.get('/:id/comments', function(req, res) {
         }
     });     
 });
-
+ */
 module.exports = server;
